@@ -1,0 +1,46 @@
+<html>  
+<head>
+<script type="text/javascript">
+var grades = "jim|25, sue|32, mary|34, ann|22, ted|28, frank|15, lisa|19, mike|30, ahn|26, vishaya|27";
+var studentGrades = grades.split(", ");
+var students = [];
+for (var i = 0; i < studentGrades.length; i++) {
+  var studentGrade = studentGrades[i].split("|");
+  let student = { };
+  student.Name = studentGrade[0];
+  student.Grade = parseInt(studentGrade[1]);
+  students.push(student);
+}
+
+var lowestStudent = students[0];
+var highestStudent = students[0];
+var gradesSum = 0;
+for (var i = 0; i < students.length; i++) {
+  var student = students[i];
+  gradesSum += student.Grade;
+  if (lowestStudent.Grade > student.Grade) {
+    lowestStudent = student;
+  }
+
+  if (highestStudent.Grade < student.Grade) {
+    highestStudent = student;
+  }
+  
+  document.write(student.Name.charAt(0).toUpperCase() + student.Name.slice(1) + " - " + student.Grade + "</br>");
+}
+
+document.write("</br></br>Total number of students " + students.length + "</br>");
+document.write("Lowest student grade " + lowestStudent.Name.charAt(0).toUpperCase() + lowestStudent.Name.slice(1) + " - " + lowestStudent.Grade + "</br>");
+document.write("Highest student grade " + highestStudent.Name.charAt(0).toUpperCase() + highestStudent.Name.slice(1) + " - " + highestStudent.Grade + "</br>");
+document.write("Average grade " + (gradesSum / students.length) + "</br></br></br>");
+document.write("Sorted students</br>");
+students = students.sort((a, b) => (a.Name > b.Name) - (a.Name < b.Name));
+for (var i = 0; i < students.length; i++) {
+  var student = students[i];
+  document.write(student.Name.charAt(0).toUpperCase() + student.Name.slice(1) + " - " + student.Grade + "</br>");
+}
+</script>  
+</head>  
+<body>
+</body>  
+</html>
