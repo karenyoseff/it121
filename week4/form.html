@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+</head>
+<body>
+
+<h1>Functions & validation</h1>
+
+<form id="form1" action="#" onsubmit="return validateForm(this);">
+  first name: <input type="text" name="firstname"><br>
+  last name: <input type="text" name="lastname"><br>
+  password: <input type="text" name="password"><br>
+
+  <button>Check</button>
+</form>
+
+<hr><div id="message"></div>
+
+<script>
+
+// add validatePassword function here
+
+
+const validateForm = (myForm) => {
+
+  var firstName = myForm.firstname.value; // get text of firstname field
+  var lastName = myForm.lastname.value;
+  var password = myForm.password.value;
+  
+  // update 'message' DIV with appropriate wording
+  $("#message").html("Button clicked");
+  
+  if (firstName.length == 0) {
+    $("#message").html("Invalid first name");
+    return false;
+  }
+  
+  if (lastName.length == 0) {
+    $("#message").html("Invalid last name");
+    return false;
+  }
+  
+  if (!validatePassword(password)) {
+    $("#message").html("Invalid password");
+    return false;
+  }
+  
+  $("#message").html("All values are valid");
+  return false; // prevent page reload
+}
+
+function validatePassword(password) {
+  if (password.length < 8) {
+    return false;
+  }
+
+  var hasUpperCase = false;
+  var hasLowerCase = false;
+  for (var i = 0; i < password.length; i++) {
+    if (password[i] >= 'a' && password[i] <= 'z') {
+      hasLowerCase = true;
+    }
+    
+    if (password[i] >= 'A' && password[i] <= 'Z') {
+      hasUpperCase = true;
+    }
+  }
+  
+  if (!hasUpperCase || !hasLowerCase) {
+    return false;
+  }
+  
+  return true;
+}
+
+</script>
+
+</body>
+</html>
