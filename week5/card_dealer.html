@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+</head>
+<body>
+
+<h1>Robo Dealer</h1>
+
+  <button onclick="dealHand();">Deal Hand</button>
+  <button onclick="drawCard();">Draw card</button>
+  
+<hr><div id="card_hand"></div>
+
+<script>
+
+var cards = []
+
+const dealHand = () => {
+  cards = []
+  $("#card_hand").html("");
+  for (var suit = 0; suit < 4; suit++) {
+    for (var value = 1; value <= 13; value ++) {
+      const card = { suit: suit, value: value };
+      cards.push(card);
+    }
+  }
+  
+  for (var i = 0; i < 5; i++) {
+    drawCard();
+  }
+
+  return false; // prevent page reload
+}
+
+function drawCard() {
+  cardToPick = Math.floor(Math.random() * cards.length);
+  var card = cards.splice(cardToPick, 1)[0];
+
+  var cardString = "";
+  if (card.value == 1) {
+    cardString = "Ace";
+  } else if (card.value == 11) {
+    cardString = "Jack";
+  } else if (card.value == 12) {
+    cardString = "Queen";
+  } else if (card.value == 13) {
+    cardString = "King";
+  } else {
+    cardString = card.value;
+  }
+  
+  cardString += " of ";
+  
+  if (card.suit == 0) {
+    cardString += "Spades";
+  } else if (card.suit == 1) {
+    cardString += "Hearts";
+  } else if (card.suit == 2) {
+    cardString += "Diamonds";
+  } else if (card.suit == 3) {
+    cardString += "Clubs";
+  }
+  
+  $("#card_hand").append(cardString + "</br>");
+}
+
+</script>
+
+</body>
+</html>
