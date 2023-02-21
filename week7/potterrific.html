@@ -1,0 +1,92 @@
+
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    </head>
+    <style>
+        .over {
+            background-color: orange;
+        }
+        .selected {
+            background-color: green;
+        }
+        .odd {
+            background-color: #DDDDDD;
+        }
+    </style>
+
+    <body>
+        <div id="buttons"></div>
+        <table border='1'>
+            <tr>
+                <th>name</th>
+                <th>role</th>
+                <th>house</th>
+                <th>gender</th>
+                <th>alignment</th>
+            </tr>
+        </table>
+        <button>reset</button>
+    </body>
+        
+        <script>
+        // list of characters
+        var characters = [
+        {name:"Albus Dumbledore", role:"staff", house:"Gryffindor",gender:"m",alignment:"good"},    
+        {name:"Nymphadora Tonks", role:"", house:"Hufflepuff",gender:"f",alignment:"good"},    
+        {name:"Ron Weasley", role:"student", house:"Gryffindor",gender:"m",alignment:"good"},    
+        {name:"Ginny Weasley", role:"student", house:"Gryffindor",gender:"f",alignment:"good"},    
+        {name:"Hermione Granger", role:"student", house:"Gryffindor",gender:"f",alignment:"good"},    
+        {name:"Mad-eye Moody", role:"staff", house:"",gender:"m",alignment:"good"},    
+        {name:"Prof McGonagall", role:"staff", house:"Gryffindor",gender:"f",alignment:"good"},    
+        {name:"Harry Potter", role:"student", house:"Gryffindor",gender:"m",alignment:"good"},    
+        {name:"Draco Malfoy", role:"student", house:"Slytherin",gender:"m",alignment:"evil"},    
+        {name:"Hagrid", role:"staff", house:"Gryffindor",gender:"m",alignment:"good"},    
+        {name:"Luna Lovegood", role:"student", house:"Ravenclaw",gender:"f",alignment:"good"},    
+        {name:"Voldemort", role:"", house:"Slytherin",gender:"m",alignment:"evil"},    
+        {name:"Bellatrix Lestrange", role:"", house:"Slytherin",gender:"f",alignment:"evil"},           
+        {name:"Severus Snape", role:"staff", house:"Slytherin",gender:"m",alignment:"?"}
+        ];
+
+        $(document).ready(function(){
+          $("button").click(function(){
+            $("tr").removeClass("odd").show();
+            $("tr:visible:odd").addClass("odd");
+          });
+          var table = $("table");
+          var houses = [];
+          for (const character of characters) {
+            var house = character.house;
+            if (house == "") {
+              house = "None";
+            }
+            
+            $("<tr class='character " + house + "'><td>" + character.name + "</td><td>" + character.role + "</td><td>" + character.house + "</td><td>" + character.gender + "</td><td>" + character.alignment + "</td></tr>").appendTo(table);
+            if (houses.indexOf(house) < 0) {
+              houses.push(house);
+            }
+          }
+          
+          $("tr:visible:odd").addClass("odd");
+          
+          for (const house of houses) {
+            $("<button>" + house + "</button>").click(function(){
+              $("tr").removeClass("odd").show();
+              $("tr.character:not(." + house + ")").hide();
+              $("tr:visible:odd").addClass("odd");
+            }).insertBefore(table);
+          }
+        /*
+        - add a button for each 'house' value
+        - add table row for each character
+        - set visible rows to alternating background color
+            
+        - add click handler to show only rows matching selected 'house'. Enable buttons to call this handler. 
+        
+        - add click handler to reset table 
+        */
+
+        });
+
+        </script>
+</html>
